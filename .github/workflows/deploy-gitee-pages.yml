@@ -60,7 +60,7 @@ jobs:
           destination-repo: git@gitee.com:kukuji/douyin.git
 
       - name: Build Gitee Pages
-        uses: kukuji/douyin@main
+        uses: yanglbme/gitee-pages-action@main
         with:
           # 注意替换为你的 Gitee 用户名
           gitee-username: kukuji
