@@ -12,7 +12,14 @@ jobs:
     steps:
       - name: get version
         id: vars
-        run: echo "version=$(echo $GITHUB_REF | sed -e 's|refs/tags/v $.*$ |\1|' -e 's|refs/heads/.*|latest|')" >> $GITHUB_ENV
+        run: |
+          if [[ "$GITHUB_REF" =~ ^refs/tags/v([0-9]+(\.[0-9]+)*)$ ]]; then
+            echo "version=${BASH_REMATCH[1]}" >> $GITHUB_ENV
+          elif [[ "$GITHUB_REF" =~ ^refs/heads/(.*)$ ]]; then
+            echo "version=latest" >> $GITHUB_ENV
+          else
+            echo "version=unknown" >> $GITHUB_ENV
+          fi
       - uses: actions/checkout@v4
       - name: set up QEMU
         uses: docker/setup-qemu-action@v3
