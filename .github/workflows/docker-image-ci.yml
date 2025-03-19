@@ -33,6 +33,17 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GHCR_TOKEN }}
 
+      - name: Get version
+        id: vars
+        run: |
+          if [[ "$GITHUB_REF" =~ ^refs/tags/v([0-9]+(\.[0-9]+)*)$ ]]; then
+            echo "version=${BASH_REMATCH[1]}" >> $GITHUB_ENV
+          elif [[ "$GITHUB_REF" =~ ^refs/heads/(.*)$ ]]; then
+            echo "version=latest" >> $GITHUB_ENV
+          else
+            echo "version=unknown" >> $GITHUB_ENV
+          fi
+
       - name: Build and Push Docker image
         uses: docker/build-push-action@v5
         with:
