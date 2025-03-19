@@ -32,7 +32,7 @@ jobs:
           cache: 'pnpm'
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile  # 锁定依赖版本加速安装
+        run: pnpm install
 
       - name: Build
         run: pnpm run build-gp-pages
