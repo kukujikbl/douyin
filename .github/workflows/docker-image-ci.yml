@@ -47,8 +47,6 @@ jobs:
           build-args: |
             NODE_VERSION=18
             PNPM_VERSION=8.6.0
-          build-contexts: |
-            node_modules=/dev/null
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
           file: ./Dockerfile
