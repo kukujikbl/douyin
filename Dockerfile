@@ -15,7 +15,7 @@ WORKDIR /src
 COPY ./ ./
 
 # 安装依赖
-RUN pnpm install
+RUN pnpm install --verbose
 
 # 构建项目
 RUN pnpm run build
