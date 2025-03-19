@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: get version
         id: vars
-        run: echo ::set-output name=version::${GITHUB_REF/refs/tags/v/}
+        run: echo "version=$(echo $GITHUB_REF | sed -e 's|refs/tags/v $.*$ |\1|' -e 's|refs/heads/.*|latest|')" >> $GITHUB_ENV
       - uses: actions/checkout@v4
       - name: set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -30,5 +30,5 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: |
-            ghcr.io/${{ github.repository_owner }}/douyin:${{ steps.vars.outputs.version }}
+            ghcr.io/${{ github.repository_owner }}/douyin:${{ env.version }}
             ghcr.io/${{ github.repository_owner }}/douyin:latest
