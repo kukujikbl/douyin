@@ -15,7 +15,7 @@ WORKDIR /src
 COPY ./ ./
 
 # 安装依赖
-RUN pnpm install --verbose
+RUN pnpm install --verbose || { cat /src/pnpm-debug.log; exit 1; }
 
 # 构建项目
 RUN pnpm run build
